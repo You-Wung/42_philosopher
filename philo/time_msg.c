@@ -6,7 +6,7 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 19:31:56 by tyou              #+#    #+#             */
-/*   Updated: 2021/06/27 00:19:51 by tyou             ###   ########.fr       */
+/*   Updated: 2021/06/28 00:29:45 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ int					prnt(t_philo *philo, int sign)
 	pthread_mutex_lock(&philo->state->write_m);
 	if (!done)
 	{
-		printf("%d\t %d %s", get_time() - philo->state->start,
-				philo->position + 1, get_message(sign));
+		if (sign == OVER)
+			printf("%d\t%s", get_time() - philo->state->start,
+				   get_message(sign));
+		else
+			printf("%d\t %d %s", get_time() - philo->state->start,
+				   philo->position + 1, get_message(sign));
 		if (sign == DIED || sign == OVER)
 			done = 1;
 	}
