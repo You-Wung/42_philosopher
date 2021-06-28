@@ -6,7 +6,7 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 01:12:29 by tyou              #+#    #+#             */
-/*   Updated: 2021/06/28 20:48:00 by tyou             ###   ########.fr       */
+/*   Updated: 2021/06/28 21:03:09 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void			clear_state(t_state *t)
 {
 	int		i;
 
+	i = 0;
 	sem_close(t->forks_s);
 	sem_close(t->write_s);
 	sem_close(t->dead_write_s);
