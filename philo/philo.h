@@ -6,7 +6,7 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 17:05:16 by tyou              #+#    #+#             */
-/*   Updated: 2021/06/27 01:39:12 by tyou             ###   ########.fr       */
+/*   Updated: 2021/06/28 16:11:30 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct		s_philo
 	int				eat_count;
 	struct s_state	*state;
 	pthread_mutex_t	eat_m;
+	pthread_mutex_t	mutex;
 }					t_philo;
 typedef struct		s_state
 {

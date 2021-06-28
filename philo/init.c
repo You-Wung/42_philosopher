@@ -6,7 +6,7 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 21:18:55 by tyou              #+#    #+#             */
-/*   Updated: 2021/06/27 02:08:31 by tyou             ###   ########.fr       */
+/*   Updated: 2021/06/28 18:01:26 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	init_philos(t_state *t)
 		t->philos[i].rfork = (i + 1) % t->amount;
 		t->philos[i].eat_count = 0;
 		t->philos[i].state = t;
+		pthread_mutex_init(&t->philos[i].mutex, NULL);
 		pthread_mutex_init(&t->philos[i].eat_m, NULL);
 		pthread_mutex_lock(&t->philos[i].eat_m);
 	}
@@ -60,5 +61,6 @@ int			init(t_state *t, int ac, char **av)
 		return (err("error : during init"));
 	t->philos = (t_philo *)malloc(sizeof(*(t->philos)) * t->amount);
 	init_philos(t);
-	return (init_sem(t));
+	init_sem(t);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 17:07:26 by tyou              #+#    #+#             */
-/*   Updated: 2021/06/27 23:11:40 by tyou             ###   ########.fr       */
+/*   Updated: 2021/06/28 20:48:15 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void		*must_monitor(void *s)
 	{
 		i = -1;
 		while (++i < state->amount)
-		{
 			sem_wait(state->philos[i].eat_s);
-			usleep(100);
-		}
 		total++;
 	}
 	prnt(&state->philos[0], OVER);
@@ -48,6 +45,7 @@ void		*monitor(void *philo_v)
 			sem_post(philo->state->somebody_dead_s);
 			return ((void *)0);
 		}
+		usleep(100);
 	}
 	return ((void *)0);
 }
@@ -107,8 +105,8 @@ int			main(int ac, char **av)
 	start_threads(&t);
 	sem_wait(t.somebody_dead_s);
 	i = -1;
-	clear_state(&t);
 	while (++i < t.amount)
 		kill(t.philos[i].pid, SIGKILL);
+	// clear_state(&t);
 	exit(0);
 }

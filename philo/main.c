@@ -6,28 +6,29 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 17:07:26 by tyou              #+#    #+#             */
-/*   Updated: 2021/06/27 00:27:12 by tyou             ###   ########.fr       */
+/*   Updated: 2021/06/28 20:50:42 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void		*must_monitor(void *s)
+void		*must_monitor(void *t)
 {
 	t_state *state;
 	int		i;
 	int		total;
 
-	state = (t_state*)s;
+	state = (t_state *)t;
 	total = 0;
 	while (total < state->must_eat_count)
 	{
-		i = 0;
-		while (i < state->amount)
-			pthread_mutex_lock(&state->philos[i++].eat_m);
+		i = -1;
+		while (++i < state->amount)
+			pthread_mutex_lock(&state->philos[i].eat_m);
 		total++;
 	}
 	prnt(&state->philos[0], OVER);
+	pthread_mutex_lock(&state->write_m);
 	pthread_mutex_unlock(&state->somebody_dead_m);
 	return ((void *)0);
 }
@@ -45,6 +46,7 @@ void		*monitor(void *philo_v)
 			pthread_mutex_unlock(&philo->state->somebody_dead_m);
 			return ((void *)0);
 		}
+		usleep(100);
 	}
 	return ((void *)0);
 }
@@ -85,7 +87,7 @@ int			start_threads(t_state *t)
 	while (++i < t->amount)
 	{
 		philo = (void *)&t->philos[i];
-		pthread_create(&tid, 0, &routine, philo);
+		pthread_create(&tid, 0, &routine, (void *)philo);
 		pthread_detach(tid);
 		usleep(100);
 	}
