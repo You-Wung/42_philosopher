@@ -6,7 +6,7 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 21:18:55 by tyou              #+#    #+#             */
-/*   Updated: 2021/06/28 18:01:26 by tyou             ###   ########.fr       */
+/*   Updated: 2021/09/27 00:05:17 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	init_sem(t_state *t)
 	pthread_mutex_init(&t->write_m, NULL);
 	pthread_mutex_init(&t->somebody_dead_m, NULL);
 	pthread_mutex_lock(&t->somebody_dead_m);
-	t->forks_m = (pthread_mutex_t*)malloc(sizeof(*(t->forks_m)) * t->amount);
+	t->forks_m = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * t->amount);
 	i = 0;
 	while (i < t->amount)
 		pthread_mutex_init(&t->forks_m[i++], NULL);

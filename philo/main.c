@@ -6,7 +6,7 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 17:07:26 by tyou              #+#    #+#             */
-/*   Updated: 2021/06/28 20:57:58 by tyou             ###   ########.fr       */
+/*   Updated: 2021/09/27 00:43:47 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		*must_monitor(void *t)
 		total++;
 	}
 	prnt(&state->philos[0], OVER);
-	pthread_mutex_lock(&state->write_m);
+	//pthread_mutex_lock(&state->write_m);
 	pthread_mutex_unlock(&state->somebody_dead_m);
 	return ((void *)0);
 }
@@ -43,10 +43,11 @@ void		*monitor(void *philo_v)
 		if (!philo->is_eating && get_time() > philo->limit)
 		{
 			prnt(philo, DIED);
+			//pthread_mutex_unlock(&philo->mutex);
 			pthread_mutex_unlock(&philo->state->somebody_dead_m);
 			return ((void *)0);
 		}
-		usleep(100);
+		usleep(1000);
 	}
 	return ((void *)0);
 }
@@ -86,7 +87,7 @@ int			start_threads(t_state *t)
 	i = -1;
 	while (++i < t->amount)
 	{
-		philo = (void *)&t->philos[i];
+		philo = (void *)(&t->philos[i]);
 		pthread_create(&tid, 0, &routine, (void *)philo);
 		pthread_detach(tid);
 		usleep(100);

@@ -6,18 +6,18 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 19:31:56 by tyou              #+#    #+#             */
-/*   Updated: 2021/06/28 20:21:32 by tyou             ###   ########.fr       */
+/*   Updated: 2021/09/27 00:45:17 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int					get_time(void)
+uint64_t			get_time(void)
 {
-	struct timeval	t;
+	struct timeval	tv;
 
-	gettimeofday(&t, 0);
-	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
+	gettimeofday(&tv, 0);
+	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
 }
 
 static char			*get_message(int sign)
@@ -45,10 +45,10 @@ int					prnt(t_philo *philo, int sign)
 		if (sign == DIED || sign == OVER)
 			done = 1;
 		if (sign == OVER)
-			printf("%d\t%s", get_time() - philo->state->start,
+			printf("%llu\t%s", get_time() - philo->state->start,
 				get_message(sign));
 		else
-			printf("%d\t %d %s", get_time() - philo->state->start,
+			printf("%llu\t %d %s", get_time() - philo->state->start,
 				philo->position + 1, get_message(sign));
 	}
 	pthread_mutex_unlock(&philo->state->write_m);

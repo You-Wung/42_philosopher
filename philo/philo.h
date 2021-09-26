@@ -6,7 +6,7 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 17:05:16 by tyou              #+#    #+#             */
-/*   Updated: 2021/06/28 16:11:30 by tyou             ###   ########.fr       */
+/*   Updated: 2021/09/27 00:47:06 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct		s_philo
 {
 	int				position;
 	int				is_eating;
-	int				limit;
-	int				last_eat;
+	uint64_t		limit;
+	uint64_t		last_eat;
 	int				lfork;
 	int				rfork;
 	int				eat_count;
@@ -41,11 +41,11 @@ typedef struct		s_philo
 typedef struct		s_state
 {
 	int				amount;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	uint64_t		time_to_die;
+	uint64_t		time_to_eat;
+	uint64_t		time_to_sleep;
+	uint64_t		start;
 	int				must_eat_count;
-	int				start;
 	t_philo			*philos;
 	pthread_mutex_t	*forks_m;
 	pthread_mutex_t	write_m;
@@ -54,13 +54,13 @@ typedef struct		s_state
 
 int					ft_atoi(const char *str);
 int					prnt(t_philo *philo, int sign);
-int					get_time(void);
+uint64_t			get_time(void);
 int					err(char *str);
 int					init(t_state *t, int ac, char **av);
 void				clear_state(t_state *t);
 void				take_forks(t_philo *philo);
 void				clean_forks(t_philo *philo);
 void				eating(t_philo *philo);
-void				check_usleep(int time, t_philo *philo);
+void				check_usleep(uint64_t time, t_philo *philo);
 
 #endif

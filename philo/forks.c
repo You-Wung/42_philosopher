@@ -6,7 +6,7 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 01:12:00 by tyou              #+#    #+#             */
-/*   Updated: 2021/06/28 20:24:59 by tyou             ###   ########.fr       */
+/*   Updated: 2021/09/27 00:47:21 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void		take_forks(t_philo *philo)
 
 void		clean_forks(t_philo *philo)
 {
+	prnt(philo, SLEEP);
 	pthread_mutex_unlock(&philo->state->forks_m[philo->lfork]);
 	pthread_mutex_unlock(&philo->state->forks_m[philo->rfork]);
-	prnt(philo, SLEEP);
+	//usleep(philo->state->time_to_sleep * 1000);
 	check_usleep(philo->state->time_to_sleep, philo);
 }
