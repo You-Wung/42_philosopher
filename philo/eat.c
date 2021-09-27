@@ -6,7 +6,7 @@
 /*   By: tyou <tyou@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 01:12:10 by tyou              #+#    #+#             */
-/*   Updated: 2021/09/27 00:49:30 by tyou             ###   ########.fr       */
+/*   Updated: 2021/09/27 23:50:14 by tyou             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void			check_usleep(uint64_t time, t_philo *philo)
 	{
 		usleep(10000);
 		i = get_time() - philo->state->start;
+		//usleep(1);
+		//usleep(5000);
 	}
 }
 
